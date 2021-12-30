@@ -660,7 +660,7 @@ def compute_minimized_form(matrix, nr_of_var):
                 function += "B' C D' + "
                 matrix[0, 3] = '0'
                 matrix[3, 3] = '0'
-            #cazul in care avem 1 de 1
+            # cazul in care avem 1 de 1
             if matrix[0, 0] == ('1' or '*'):
                 function += "A' B' C' D' + "
                 matrix[0, 0] = '0'
@@ -710,13 +710,57 @@ def compute_minimized_form(matrix, nr_of_var):
                 function += "A B' C D + "
                 matrix[3, 3] = '0'
 
-
     return function
+
+def convert_from_fnd_to_fnc(fnd):
+    s = fnd.replace(" ", "")
+    x = s.replace("+", "*")
+    y = x.replace("'", "#")
+    new = "(" + y + ")"
+    n_new = new
+    print(new)
+    for element in range(0, len(new)):
+        # print(new[element])
+        if new[element] == '*':
+            n_new = new[0:element] + ")" + "*" + "(" + new[element + 1:]
+            print(n_new)
+    length = len(n_new)
+    print(length)
+    element = 0
+    while element < length:
+        # for element in range(0, length):
+        print("Lungimea sirului este: ", length)
+        print(element)
+        print(n_new[element])
+        if n_new[element] == 'D' or n_new[element] == 'A' or n_new[element] == 'B' or n_new[element] == 'C':
+            if n_new[element + 1] != '#' and n_new[element + 1] != "'":
+                n_new = n_new[0:element + 1] + "'" + n_new[element + 1:]
+                length += 1
+            if n_new[element + 2] == 'A' or n_new[element + 2] == 'B' or n_new[element + 2] == 'C' or\
+                    n_new[element + 2] == 'D':
+                n_new = n_new[0:element + 2] + "+" + n_new[element + 2:]
+                length += 1
+            if n_new[element + 1] == '#':
+                n_new = n_new[0:element + 1] + "" + n_new[element + 1:]
+
+        element += 1
+    nn_new = n_new.replace("#", "")
+    print(nn_new)
+    return nn_new
+
+
+#fnd = "A' B + C D "
+#fnd = "A' C B + A' B "
+#fnd = "C' D "
+fnd = "A' B' C + A' "
+fnc = convert_from_fnd_to_fnc(fnd)
+print("Formula in FNC :", fnc)  # (A+B') * (C'+D')
 
 
 def get_minimized_form_of_the_function(sigma_nr_of_var, sigma_input, sigmas_input, sigmas_correct):
+    new_dictionary = {}
     if sigma_nr_of_var == 3:
-        dictionary = create_dictionary(sigma_input, nr_of_variables)
+        dictionary = create_dictionary(sigma_input, sigma_nr_of_var)
         if sigmas_correct == 1:
             new_dictionary = create_sigmas_dictionary(sigmas_input, dictionary)
         arr = np.array([[new_dictionary.get(0), new_dictionary.get(2), new_dictionary.get(6), new_dictionary.get(4)],
@@ -741,10 +785,15 @@ def get_minimized_form_of_the_function(sigma_nr_of_var, sigma_input, sigmas_inpu
             print(x)
 
     # return function_formula
-    return 0
+    return arr
 
 
-get_minimized_form_of_the_function(4, '1,5,9,13', '3,7,11,15', 1)
+matrix = get_minimized_form_of_the_function(4, '1,5,9,13', '3,7,11,15', 1)
+function = compute_minimized_form(matrix, 4)
+size = len(function)
+# Slice string to remove last 3 characters from string
+mod_string = function[:size - 2]
+print("Forma minimizata este: ", mod_string)
 
 
 def get_expected_input(prompt):

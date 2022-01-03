@@ -59,7 +59,7 @@ def print_truth_table(nr_of_variables, sigma_input, sigmas_input, sigmas_check):
         dictionary_s = dictionary
     if nr_of_variables == 3:
         var = "ABC T" + '\n'
-        file1 = open("file1.txt", "w")
+        file1 = open("file2.txt", "w")
         file1.writelines(var)
         for i in range(0, 8):
             # convert int into binary +  generate string using key-value from dictionary
@@ -108,13 +108,16 @@ def check_if_input_have_just_numbers(txt):
     ok = 0
     for element in range(0, len(b)):
         print(b[element])
-        if '15' >= b[element] >= '0':
+        if int(b[element]) in range(0, 16, 1):
+            print(b[element])
             ok = 1
         else:
             ok = 0
 
     return ok
 
+
+# print("Has just numbers: ", check_if_input_have_just_numbers("11,12,13,4,5,6"))
 
 def checkIfDuplicates_1(listOfElems):
     ''' Check if given list contains any duplicates '''
@@ -153,52 +156,57 @@ def check_sigma_input(txt):
 
 
 def compute_minimized_form(matrix, nr_of_var):
+    print("Matricea din functie:", matrix)
+    # print(matrix[0, 2])
+    # print(matrix[0, 3])
+    # print(matrix[1, 3])
     function = ""
     print("Nr of variables received in function:", nr_of_var)
     if nr_of_var == 3:
+        print("Am ajuns unde trebuie...")
         # verificam incepand  de la cele mai mari blocuri
-        if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*') \
-                and (matrix[1, 0] == '1' or matrix[1, 0] == '*') \
-                and (matrix[1, 1] == '1' or matrix[1, 1] == '*'):
+        if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                and (matrix[1, 1] == 1 or matrix[1, 1] == '*'):
             function += "A' + "
             matrix[0, 0] = '0'
             matrix[0, 1] = '0'
             matrix[1, 0] = '0'
             matrix[1, 1] = '0'
-        if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[0, 2] == '1' or matrix[0, 2] == '*') \
-                and (matrix[1, 1] == '1' or matrix[1, 1] == '*') and (matrix[1, 2] == '1' or matrix[1, 2] == '*'):
+        if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[0, 2] == 1 or matrix[0, 2] == '*') \
+                and (matrix[1, 1] == 1 or matrix[1, 1] == '*') and (matrix[1, 2] == 1 or matrix[1, 2] == '*'):
             function += "B + "
             matrix[0, 1] = '0'
             matrix[0, 2] = '0'
             matrix[1, 1] = '0'
             matrix[1, 2] = '0'
-        if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*') \
-                and (matrix[1, 2] == '1' or matrix[1, 2] == '*') \
-                and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+        if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*') \
+                and (matrix[1, 2] == 1 or matrix[1, 2] == '*') \
+                and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
             function += "A + "
             matrix[0, 2] = '0'
             matrix[0, 3] = '0'
             matrix[1, 2] = '0'
             matrix[1, 3] = '0'
-        if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*') \
-                and (matrix[1, 0] == '1' or matrix[1, 0] == '*') \
-                and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+        if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*') \
+                and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
             function += "B' + "
             matrix[0, 0] = '0'
             matrix[0, 3] = '0'
             matrix[1, 2] = '0'
             matrix[1, 3] = '0'
-        if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[1, 1] == '1' or matrix[1, 1] == '*') \
-                and (matrix[1, 2] == '1' or matrix[1, 2] == '*') \
-                and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+        if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*') \
+                and (matrix[1, 2] == 1 or matrix[1, 2] == '*') \
+                and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
             function += "C + "
             matrix[0, 1] = '0'
             matrix[0, 2] = '0'
             matrix[1, 1] = '0'
             matrix[1, 2] = '0'
-        if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*') \
-                and (matrix[1, 0] == '1' or matrix[1, 0] == '*') \
-                and (matrix[1, 1] == '1' or matrix[1, 1] == '*'):
+        if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                and (matrix[1, 1] == 1 or matrix[1, 1] == '*'):
             function += "C' + "
             matrix[0, 0] = '0'
             matrix[0, 1] = '0'
@@ -206,88 +214,92 @@ def compute_minimized_form(matrix, nr_of_var):
             matrix[1, 1] = '0'
 
         # verificam blocurile de 2 elemente care au valoarea 1
-        if (matrix[0, 0] == '1' or '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*'):
+        if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*'):
             function += "A'C' + "
             matrix[0, 0] = '0'
             matrix[0, 1] = '0'
-        if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[0, 2] == '1' or matrix[0, 2] == '*'):
+        if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[0, 2] == 1 or matrix[0, 2] == '*'):
             function += "B C' + "
             matrix[0, 1] = '0'
             matrix[0, 2] = '0'
-        if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*'):
+
+        if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*'):
+            print("Am ajuns unde trebuie x222")
             function += "A C' + "
             matrix[0, 2] = '0'
             matrix[0, 3] = '0'
-        if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*'):
+        print("Functia:", function)
+        if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*'):
             function += "B' C' + "
             matrix[0, 0] = '0'
             matrix[0, 3] = '0'
-        if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[1, 1] == '1' or matrix[1, 1] == '*'):
+        if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*'):
             function += "A' C' + "
             matrix[1, 0] = '0'
             matrix[1, 1] = '0'
-        if (matrix[1, 1] == '1' or matrix[1, 1] == '*') and (matrix[1, 2] == '1' or matrix[1, 2] == '*'):
+        if (matrix[1, 1] == 1 or matrix[1, 1] == '*') and (matrix[1, 2] == 1 or matrix[1, 2] == '*'):
             function += "B C' + "
             matrix[1, 1] = '0'
             matrix[1, 2] = '0'
-        if (matrix[1, 2] == '1' or matrix[1, 2] == '*') and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+        if (matrix[1, 2] == 1 or matrix[1, 2] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
             function += "A C + "
             matrix[1, 2] = '0'
             matrix[1, 3] = '0'
-        if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+        if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
             function += "B' C + "
             matrix[1, 0] = '0'
             matrix[1, 3] = '0'
-        if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[1, 0] == '1' or matrix[1, 0] == '*'):
+        if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[1, 0] == 1 or matrix[1, 0] == '*'):
             function += "A' B' + "
             matrix[0, 0] = '0'
             matrix[1, 0] = '0'
-        if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[1, 1] == '1' or matrix[1, 1] == '*'):
+        if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*'):
             function += "A' B + "
             matrix[0, 1] = '0'
             matrix[1, 1] = '0'
-        if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[1, 2] == '1' or matrix[1, 2] == '*'):
+        if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[1, 2] == 1 or matrix[1, 2] == '*'):
             function += "A B + "
             matrix[0, 2] = '0'
             matrix[1, 2] = '0'
-        if (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+        if (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
             function += "A B' + "
             matrix[0, 3] = '0'
             matrix[1, 3] = '0'
         # 1 de 1
-        if matrix[0, 0] == '1':
+        if matrix[0, 0] == 1:
             function += "A' B' C' + "
             matrix[0, 0] = '0'
-        if matrix[0, 1] == '1':
+        if matrix[0, 1] == 1:
             function += "A' B C' + "
             matrix[0, 1] = '0'
-        if matrix[0, 2] == '1':
+        if matrix[0, 2] == 1:
             function += "A B C' + "
             matrix[0, 2] = '0'
-        if matrix[0, 3] == '1':
+        if matrix[0, 3] == 1:
             function += "A B' C' + "
             matrix[0, 3] = '0'
-        if matrix[1, 0] == '1':
+        if matrix[1, 0] == 1:
             function += "A' B' C + "
             matrix[1, 0] = '0'
-        if matrix[1, 1] == '1':
+        if matrix[1, 1] == 1:
             function += "A' B C + "
             matrix[1, 1] = '0'
-        if matrix[1, 2] == '1':
+        if matrix[1, 2] == 1:
             function += "A B C + "
             matrix[1, 2] = '0'
-        if matrix[1, 3] == '1':
+        if matrix[1, 3] == 1:
             function += "A B' C + "
             matrix[1, 3] = '0'
+        return function
     else:
         if nr_of_var == 4:
             # cazul in care ave blocuri de 8 de 1
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*') \
-                    and (matrix[0, 2] == '1' or matrix[0, 2] == '*') and \
-                    (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (matrix[1, 0] == '1' or matrix[1, 0] == '*') \
-                    and (matrix[1, 1] == '1' or matrix[1, 1] == '*') and \
-                    (matrix[1, 2] == '1' or matrix[1, 2] == '*') \
-                    and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                    and (matrix[0, 2] == 1 or matrix[0, 2] == '*') and \
+                    (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                    and (matrix[1, 1] == 1 or matrix[1, 1] == '*') and \
+                    (matrix[1, 2] == 1 or matrix[1, 2] == '*') \
+                    and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
                 function += "A' + "
                 matrix[0, 0] = '0'
                 matrix[0, 1] = '0'
@@ -297,12 +309,12 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[1, 1] = '0'
                 matrix[1, 2] = '0'
                 matrix[1, 3] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[2, 1] == '1' or matrix[2, 1] == '*') \
-                    and (matrix[2, 2] == '1' or matrix[2, 2] == '*') and \
-                    (matrix[2, 3] == '1' or matrix[2, 3] == '*') \
-                    and (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (
-                    matrix[3, 1] == '1' or matrix[3, 1] == '*') and \
-                    (matrix[3, 2] == '1' or matrix[3, 2] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[2, 1] == 1 or matrix[2, 1] == '*') \
+                    and (matrix[2, 2] == 1 or matrix[2, 2] == '*') and \
+                    (matrix[2, 3] == 1 or matrix[2, 3] == '*') \
+                    and (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (
+                    matrix[3, 1] == 1 or matrix[3, 1] == '*') and \
+                    (matrix[3, 2] == 1 or matrix[3, 2] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "A + "
                 matrix[2, 0] = '0'
                 matrix[2, 1] = '0'
@@ -312,11 +324,11 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*') \
-                    and (matrix[1, 0] == '1' or matrix[1, 0] == '*') and \
-                    (matrix[1, 1] == '1' or matrix[1, 1] == '*') and (matrix[2, 0] == '1' or matrix[2, 0] == '*') \
-                    and (matrix[2, 1] == '1' or matrix[2, 1] == '*') and \
-                    (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                    and (matrix[1, 0] == 1 or matrix[1, 0] == '*') and \
+                    (matrix[1, 1] == 1 or matrix[1, 1] == '*') and (matrix[2, 0] == 1 or matrix[2, 0] == '*') \
+                    and (matrix[2, 1] == 1 or matrix[2, 1] == '*') and \
+                    (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "C' + "
                 matrix[2, 0] = '0'
                 matrix[2, 1] = '0'
@@ -326,12 +338,12 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (
-                    matrix[1, 2] == '1'
+            if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (
+                    matrix[1, 2] == 1
                     or matrix[1, 2] == '*') and \
-                    (matrix[1, 3] == '1' or matrix[1, 3] == '*') and (matrix[2, 2] == '1' or matrix[2, 2] == '*') \
-                    and (matrix[2, 3] == '1' or matrix[2, 3] == '*') and \
-                    (matrix[3, 2] == '1' or matrix[3, 2] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+                    (matrix[1, 3] == 1 or matrix[1, 3] == '*') and (matrix[2, 2] == 1 or matrix[2, 2] == '*') \
+                    and (matrix[2, 3] == 1 or matrix[2, 3] == '*') and \
+                    (matrix[3, 2] == 1 or matrix[3, 2] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "C + "
                 matrix[0, 2] = '0'
                 matrix[0, 3] = '0'
@@ -341,12 +353,12 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[2, 3] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[1, 0] == '1' or matrix[1, 0] == '*') \
-                    and (matrix[2, 0] == '1' or matrix[2, 0] == '*') and \
-                    (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*') \
-                    and (matrix[1, 3] == '1' or matrix[1, 3] == '*') and \
-                    (matrix[2, 3] == '1' or matrix[2, 3] == '*') and \
-                    (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                    and (matrix[2, 0] == 1 or matrix[2, 0] == '*') and \
+                    (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*') \
+                    and (matrix[1, 3] == 1 or matrix[1, 3] == '*') and \
+                    (matrix[2, 3] == 1 or matrix[2, 3] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "D' + "
                 matrix[0, 0] = '0'
                 matrix[1, 0] = '0'
@@ -356,11 +368,11 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[1, 3] = '0'
                 matrix[2, 3] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[1, 0] == '1' or matrix[1, 0] == '*') \
-                    and (matrix[2, 0] == '1' or matrix[2, 0] == '*') and \
-                    (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (matrix[0, 3] == '1' or matrix[3, 0] == '*') \
-                    and (matrix[1, 3] == '1' or matrix[1, 3] == '*') and \
-                    (matrix[2, 3] == '1' or matrix[2, 3] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                    and (matrix[2, 0] == 1 or matrix[2, 0] == '*') and \
+                    (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (matrix[0, 3] == 1 or matrix[3, 0] == '*') \
+                    and (matrix[1, 3] == 1 or matrix[1, 3] == '*') and \
+                    (matrix[2, 3] == 1 or matrix[2, 3] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "D' + "
                 matrix[0, 0] = '0'
                 matrix[1, 0] = '0'
@@ -370,11 +382,11 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[1, 3] = '0'
                 matrix[2, 3] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*') \
-                    and (matrix[0, 2] == '1' or matrix[0, 2] == '*') and \
-                    (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (matrix[3, 0] == '1' or matrix[3, 0] == '*') and \
-                    (matrix[3, 1] == '1' or matrix[3, 1] == '*') and \
-                    (matrix[3, 2] == '1' or matrix[3, 2] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                    and (matrix[0, 2] == 1 or matrix[0, 2] == '*') and \
+                    (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (matrix[3, 0] == 1 or matrix[3, 0] == '*') and \
+                    (matrix[3, 1] == 1 or matrix[3, 1] == '*') and \
+                    (matrix[3, 2] == 1 or matrix[3, 2] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "B' + "
                 matrix[0, 0] = '0'
                 matrix[0, 1] = '0'
@@ -384,11 +396,11 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[0, 2] == '1' or matrix[0, 2] == '*') \
-                    and (matrix[1, 1] == '1' or matrix[1, 1] == '*') and \
-                    (matrix[1, 2] == '1' or matrix[1, 2] == '*') and (matrix[2, 1] == '1' or matrix[2, 1] == '*') \
-                    and (matrix[2, 2] == '1' or matrix[2, 2] == '*') and \
-                    (matrix[3, 1] == '1' or matrix[3, 1] == '*') and (matrix[3, 2] == '1' or matrix[3, 2] == '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[0, 2] == 1 or matrix[0, 2] == '*') \
+                    and (matrix[1, 1] == 1 or matrix[1, 1] == '*') and \
+                    (matrix[1, 2] == 1 or matrix[1, 2] == '*') and (matrix[2, 1] == 1 or matrix[2, 1] == '*') \
+                    and (matrix[2, 2] == 1 or matrix[2, 2] == '*') and \
+                    (matrix[3, 1] == 1 or matrix[3, 1] == '*') and (matrix[3, 2] == 1 or matrix[3, 2] == '*'):
                 function += "D + "
                 matrix[0, 1] = '0'
                 matrix[0, 2] = '0'
@@ -398,11 +410,11 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[2, 2] = '0'
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
-            if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[1, 1] == '1' or matrix[1, 1] == '*') \
-                    and (matrix[1, 2] == '1' or matrix[1, 2] == '*') and \
-                    (matrix[1, 3] == '1' or matrix[1, 3] == '*') and (matrix[2, 0] == '1' or matrix[2, 0] == '*') \
-                    and (matrix[2, 1] == '1' or matrix[2, 1] == '*') and \
-                    (matrix[2, 2] == '1' or matrix[2, 2] == '*') and (matrix[2, 3] == '1' or matrix[2, 3] == '*'):
+            if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*') \
+                    and (matrix[1, 2] == 1 or matrix[1, 2] == '*') and \
+                    (matrix[1, 3] == 1 or matrix[1, 3] == '*') and (matrix[2, 0] == 1 or matrix[2, 0] == '*') \
+                    and (matrix[2, 1] == 1 or matrix[2, 1] == '*') and \
+                    (matrix[2, 2] == 1 or matrix[2, 2] == '*') and (matrix[2, 3] == 1 or matrix[2, 3] == '*'):
                 function += "B + "
                 matrix[1, 0] = '0'
                 matrix[1, 1] = '0'
@@ -413,376 +425,376 @@ def compute_minimized_form(matrix, nr_of_var):
                 matrix[2, 2] = '0'
                 matrix[2, 3] = '0'
             # cazul in care ave blocuri de 4 de 1
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*') \
-                    and (matrix[0, 2] == '1' or matrix[0, 2] == '*') and \
-                    (matrix[0, 3] == '1' or matrix[0, 3] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                    and (matrix[0, 2] == 1 or matrix[0, 2] == '*') and \
+                    (matrix[0, 3] == 1 or matrix[0, 3] == '*'):
                 function += "A' B' + "
                 matrix[0, 0] = '0'
                 matrix[0, 1] = '0'
                 matrix[0, 2] = '0'
                 matrix[0, 3] = '0'
-            if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[1, 1] == '1' or matrix[1, 1] == '*') \
-                    and (matrix[1, 2] == '1' or matrix[1, 2] == '*') and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+            if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*') \
+                    and (matrix[1, 2] == 1 or matrix[1, 2] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
                 function += "A' B + "
                 matrix[1, 0] = '0'
                 matrix[1, 1] = '0'
                 matrix[1, 2] = '0'
                 matrix[1, 3] = '0'
-            if (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (matrix[3, 1] == '1' or matrix[3, 1] == '*') \
-                    and (matrix[3, 2] == '1' or matrix[3, 2] == '*') and \
-                    (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (matrix[3, 1] == 1 or matrix[3, 1] == '*') \
+                    and (matrix[3, 2] == 1 or matrix[3, 2] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "A B' + "
                 matrix[3, 0] = '0'
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[2, 1] == '1' or matrix[2, 1] == '*') \
-                    and (matrix[2, 2] == '1' or matrix[2, 2] == '*') and \
-                    (matrix[2, 3] == '1' or matrix[2, 3] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[2, 1] == 1 or matrix[2, 1] == '*') \
+                    and (matrix[2, 2] == 1 or matrix[2, 2] == '*') and \
+                    (matrix[2, 3] == 1 or matrix[2, 3] == '*'):
                 function += "A B + "
                 matrix[2, 0] = '0'
                 matrix[2, 1] = '0'
                 matrix[2, 2] = '0'
                 matrix[2, 3] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[2, 1] == '1' or matrix[2, 1] == '*') \
-                    and (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[2, 1] == 1 or matrix[2, 1] == '*') \
+                    and (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "B C' + "
                 matrix[2, 0] = '0'
                 matrix[2, 1] = '0'
                 matrix[3, 0] = '0'
                 matrix[3, 1] = '0'
-            if (matrix[2, 2] == '1' or matrix[2, 2] == '*') and (matrix[2, 3] == '1' or matrix[2, 3] == '*') \
-                    and (matrix[3, 2] == '1' or matrix[3, 2] == '*') and \
-                    (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[2, 2] == 1 or matrix[2, 2] == '*') and (matrix[2, 3] == 1 or matrix[2, 3] == '*') \
+                    and (matrix[3, 2] == 1 or matrix[3, 2] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "B C + "
                 matrix[2, 2] = '0'
                 matrix[2, 3] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0, 1] == '*') \
-                    and (matrix[3, 0] == '1' or matrix[3, 0] == '*') and \
-                    (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                    and (matrix[3, 0] == 1 or matrix[3, 0] == '*') and \
+                    (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "B' C' + "
                 matrix[0, 0] = '0'
                 matrix[0, 1] = '0'
                 matrix[3, 0] = '0'
                 matrix[3, 1] = '0'
-            if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*') and \
-                    (matrix[3, 2] == '1' or matrix[3, 2] == '*') and \
-                    (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*') and \
+                    (matrix[3, 2] == 1 or matrix[3, 2] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "B' C + "
                 matrix[0, 2] = '0'
                 matrix[0, 3] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[2, 1] == '1' or matrix[2, 1] == '*') \
-                    and (matrix[3, 0] == '1' or matrix[3, 0] == '*') and \
-                    (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[2, 1] == 1 or matrix[2, 1] == '*') \
+                    and (matrix[3, 0] == 1 or matrix[3, 0] == '*') and \
+                    (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "A C' + "
                 matrix[2, 0] = '0'
                 matrix[2, 1] = '0'
                 matrix[3, 0] = '0'
                 matrix[3, 1] = '0'
-            if (matrix[2, 2] == '1' or matrix[2,2] == '*') and (matrix[2, 3] == '1' or matrix[2, 3] == '*')\
-                    and (matrix[3, 2] == '1' or matrix[3, 2] == '*') and \
-                    (matrix[3, 3] == '1' or matrix [3, 3] ==  '*'):
+            if (matrix[2, 2] == 1 or matrix[2, 2] == '*') and (matrix[2, 3] == 1 or matrix[2, 3] == '*') \
+                    and (matrix[3, 2] == 1 or matrix[3, 2] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "A C + "
                 matrix[2, 2] = '0'
                 matrix[2, 3] = '0'
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0,1] == '*') \
-                    and (matrix[1, 0] == '1' or matrix[1, 0] == '*') and \
-                    (matrix[1, 1] == '1' or matrix[1, 1] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*') \
+                    and (matrix[1, 0] == 1 or matrix[1, 0] == '*') and \
+                    (matrix[1, 1] == 1 or matrix[1, 1] == '*'):
                 function += "A' C' + "
                 matrix[0, 2] = '0'
                 matrix[0, 1] = '0'
                 matrix[1, 0] = '0'
                 matrix[1, 1] = '0'
-            if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*') \
-                    and (matrix[1, 2] == '1' or matrix[1, 2] == '*') and \
-                    (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+            if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*') \
+                    and (matrix[1, 2] == 1 or matrix[1, 2] == '*') and \
+                    (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
                 function += "A' C + "
                 matrix[0, 2] = '0'
                 matrix[0, 3] = '0'
                 matrix[1, 2] = '0'
                 matrix[1, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] =='*') and (matrix[1, 0] == '1' or matrix[1, 0] == '*') \
-                    and (matrix[0, 3] == '1' or matrix[0, 3] == '*') and \
-                    (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                    and (matrix[0, 3] == 1 or matrix[0, 3] == '*') and \
+                    (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
                 function += "A' D' + "
                 matrix[0, 0] = '0'
                 matrix[1, 0] = '0'
                 matrix[0, 3] = '0'
                 matrix[1, 3] = '0'
-            if (matrix[2, 1] == '1' or matrix[2, 1] == '*') and (matrix[2, 2] == '1' or matrix[2, 2] == '*') \
-                    and (matrix[3, 1] == '1' or matrix[3, 1] == '*') and \
-                    (matrix[3, 2] == '1' or matrix[3, 2] == '*'):
+            if (matrix[2, 1] == 1 or matrix[2, 1] == '*') and (matrix[2, 2] == 1 or matrix[2, 2] == '*') \
+                    and (matrix[3, 1] == 1 or matrix[3, 1] == '*') and \
+                    (matrix[3, 2] == 1 or matrix[3, 2] == '*'):
                 function += "A D + "
                 matrix[2, 1] = '0'
                 matrix[2, 2] = '0'
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
-            if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[0, 2] == '1' or matrix[0, 2] =='*') \
-                    and (matrix[1, 1] == '1' or matrix[1, 1] == '*') and \
-                    (matrix[1, 2] == '1' or matrix[1, 2] == '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[0, 2] == 1 or matrix[0, 2] == '*') \
+                    and (matrix[1, 1] == 1 or matrix[1, 1] == '*') and \
+                    (matrix[1, 2] == 1 or matrix[1, 2] == '*'):
                 function += "A' D + "
                 matrix[0, 1] = '0'
                 matrix[0, 2] = '0'
                 matrix[1, 1] = '0'
                 matrix[1, 2] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[3, 0] == '1' or matrix[3, 0] == '*') \
-                    and (matrix[2, 3] == '1' or matrix[2, 3] == '*') and \
-                    (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[3, 0] == 1 or matrix[3, 0] == '*') \
+                    and (matrix[2, 3] == 1 or matrix[2, 3] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "A D' + "
                 matrix[2, 0] = '0'
                 matrix[3, 0] = '0'
                 matrix[2, 3] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[2, 0] == '1' or matrix[2, 0] == '*')\
-                    and (matrix[1, 3] == '1' or matrix[1, 3] == '*') and \
-                    (matrix[2, 3] == '1' or matrix[2, 3] == '*'):
+            if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[2, 0] == 1 or matrix[2, 0] == '*') \
+                    and (matrix[1, 3] == 1 or matrix[1, 3] == '*') and \
+                    (matrix[2, 3] == 1 or matrix[2, 3] == '*'):
                 function += "B D' + "
                 matrix[1, 0] = '0'
                 matrix[2, 0] = '0'
                 matrix[1, 3] = '0'
                 matrix[2, 3] = '0'
-            if (matrix[1, 1] == '1' or matrix[1, 1] == '*') and (matrix[1, 2] == '1' or matrix[1, 2] == '*') \
-                    and (matrix[2, 1] == '1' or matrix[2, 1] == '*') and \
-                    (matrix[2, 2] == '1' or matrix[2, 2] == '*'):
+            if (matrix[1, 1] == 1 or matrix[1, 1] == '*') and (matrix[1, 2] == 1 or matrix[1, 2] == '*') \
+                    and (matrix[2, 1] == 1 or matrix[2, 1] == '*') and \
+                    (matrix[2, 2] == 1 or matrix[2, 2] == '*'):
                 function += "B D + "
                 matrix[1, 1] = '0'
                 matrix[1, 2] = '0'
                 matrix[2, 1] = '0'
                 matrix[2, 2] = '0'
-            if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and ( matrix[0, 2] == '1' or matrix[0, 2] == '*')\
-                    and (matrix[3, 1] == '1' or matrix[3, 1] == '*') and \
-                    (matrix[3, 2] == '1' or matrix[3, 2] == '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[0, 2] == 1 or matrix[0, 2] == '*') \
+                    and (matrix[3, 1] == 1 or matrix[3, 1] == '*') and \
+                    (matrix[3, 2] == 1 or matrix[3, 2] == '*'):
                 function += "B' D + "
                 matrix[0, 1] = '0'
                 matrix[0, 2] = '0'
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*')\
-                    and (matrix[3, 0] == '1' or matrix[3, 0] == '*') and \
-                    (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*') \
+                    and (matrix[3, 0] == 1 or matrix[3, 0] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "B' D' + "
                 matrix[0, 0] = '0'
                 matrix[0, 3] = '0'
                 matrix[3, 0] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[1, 0] == '1' or matrix[1, 0] == '*')\
-                    and (matrix[2, 0] == '1' or matrix[2, 0] == '*') and \
-                    (matrix[3, 0] == '1' or matrix[3, 0] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[1, 0] == 1 or matrix[1, 0] == '*') \
+                    and (matrix[2, 0] == 1 or matrix[2, 0] == '*') and \
+                    (matrix[3, 0] == 1 or matrix[3, 0] == '*'):
                 function += "C' D' + "
                 matrix[0, 0] = '0'
                 matrix[1, 0] = '0'
                 matrix[2, 0] = '0'
                 matrix[3, 0] = '0'
-            if (matrix[0, 1] == '1' or matrix[0,1] == '*') and (matrix[1, 1] == '1' or matrix[1, 1] == '*')\
-                    and (matrix[2, 1] == '1' or matrix[2, 1] == '*') and \
-                    (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*') \
+                    and (matrix[2, 1] == 1 or matrix[2, 1] == '*') and \
+                    (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "C' D + "
                 matrix[0, 1] = '0'
                 matrix[1, 1] = '0'
                 matrix[2, 1] = '0'
                 matrix[3, 1] = '0'
-            if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[1, 2] == '1' or matrix[1, 2] == '*')\
-                    and (matrix[2, 2] == '1' or matrix[2,2] == '*') and \
-                    (matrix[3, 2] == '1' or matrix[3, 2] == '*'):
+            if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[1, 2] == 1 or matrix[1, 2] == '*') \
+                    and (matrix[2, 2] == 1 or matrix[2, 2] == '*') and \
+                    (matrix[3, 2] == 1 or matrix[3, 2] == '*'):
                 function += "C D + "
                 matrix[0, 2] = '0'
                 matrix[1, 2] = '0'
                 matrix[2, 2] = '0'
                 matrix[3, 2] = '0'
-            if (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (matrix[1, 3] == '1' or matrix[1, 3] == '*')\
-                    and (matrix[2, 3] == '1' or matrix[2, 3] == '*') and \
-                    (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*') \
+                    and (matrix[2, 3] == 1 or matrix[2, 3] == '*') and \
+                    (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "C D' + "
                 matrix[0, 3] = '0'
                 matrix[1, 3] = '0'
                 matrix[2, 3] = '0'
                 matrix[3, 3] = '0'
             # cazul in care avem perechi de 1 -- cate 2
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[0, 1] == '1' or matrix[0,1] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[0, 1] == 1 or matrix[0, 1] == '*'):
                 function += "A' B'  C' + "
                 matrix[0, 0] = '0'
                 matrix[0, 1] = '0'
-            if (matrix[0, 1] == '1' or matrix[0,1] == '*') and (matrix[0, 2] == '1' or matrix[0,2] == '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[0, 2] == 1 or matrix[0, 2] == '*'):
                 function += "A' B' D + "
                 matrix[0, 1] = '0'
                 matrix[0, 2] = '0'
-            if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] == '*'):
+            if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*'):
                 function += "A' B' C + "
                 matrix[0, 2] = '0'
                 matrix[0, 3] = '0'
-            if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[0, 3] == '1' or matrix[0, 3] ==  '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[0, 3] == 1 or matrix[0, 3] == '*'):
                 function += "A' B' D' + "
                 matrix[0, 1] = '0'
                 matrix[0, 3] = '0'
-            if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[1, 1] == '1' or matrix[1,1] == '*'):
+            if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*'):
                 function += "A' B C' + "
                 matrix[1, 0] = '0'
                 matrix[1, 1] = '0'
-            if (matrix[1, 1] == '1' or matrix[1, 1] ==  '*') and (matrix[1, 2] == '1' or matrix[1, 2] == '*'):
+            if (matrix[1, 1] == 1 or matrix[1, 1] == '*') and (matrix[1, 2] == 1 or matrix[1, 2] == '*'):
                 function += "A' B D + "
                 matrix[1, 1] = '0'
                 matrix[1, 2] = '0'
-            if (matrix[1, 2] == '1' or matrix[1, 2] == '*') and (matrix[1, 3] == '1' or matrix[1,3] == '*'):
+            if (matrix[1, 2] == 1 or matrix[1, 2] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
                 function += "A' B C + "
                 matrix[1, 2] = '0'
                 matrix[1, 3] = '0'
-            if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+            if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
                 function += "A' B D' + "
                 matrix[1, 0] = '0'
                 matrix[1, 3] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[2, 1] == '1' or matrix[2, 1] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[2, 1] == 1 or matrix[2, 1] == '*'):
                 function += "A B C' + "
                 matrix[2, 0] = '0'
                 matrix[2, 1] = '0'
-            if (matrix[2, 1] == '1' or matrix[2, 1] == '*') and (matrix[2, 2] == '1' or matrix[2, 2] == '*'):
+            if (matrix[2, 1] == 1 or matrix[2, 1] == '*') and (matrix[2, 2] == 1 or matrix[2, 2] == '*'):
                 function += "A B D + "
                 matrix[2, 1] = '0'
                 matrix[2, 2] = '0'
-            if (matrix[2, 2] == '1' or matrix[2, 2] == '*') and (matrix[2, 3] == '1' or matrix[2, 3] == '*'):
+            if (matrix[2, 2] == 1 or matrix[2, 2] == '*') and (matrix[2, 3] == 1 or matrix[2, 3] == '*'):
                 function += "A B C + "
                 matrix[2, 2] = '0'
                 matrix[2, 3] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[2, 3] == '1' or matrix[2, 3] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[2, 3] == 1 or matrix[2, 3] == '*'):
                 function += "A B D' + "
                 matrix[2, 0] = '0'
                 matrix[2, 3] = '0'
-            if (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "A B' D' + "
                 matrix[3, 0] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[3, 1] == '1' or matrix[3, 1] == '*') and (matrix[3, 2] == '1' or matrix[3, 2] == '*'):
+            if (matrix[3, 1] == 1 or matrix[3, 1] == '*') and (matrix[3, 2] == 1 or matrix[3, 2] == '*'):
                 function += "A B' D + "
                 matrix[3, 1] = '0'
                 matrix[3, 2] = '0'
-            if (matrix[3, 2] == '1' or matrix[3, 2] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[3, 2] == 1 or matrix[3, 2] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "A B' C + "
                 matrix[3, 2] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[3, 0] == '1' or matrix[3, 0] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[3, 0] == 1 or matrix[3, 0] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "A B' D' + "
                 matrix[3, 0] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[1, 0] == '1' or matrix[1, 0] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[1, 0] == 1 or matrix[1, 0] == '*'):
                 function += "A' C' D' + "
                 matrix[0, 0] = '0'
                 matrix[1, 0] = '0'
-            if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[1, 1] == '1' or matrix[1, 1] == '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[1, 1] == 1 or matrix[1, 1] == '*'):
                 function += "A' C' D + "
                 matrix[0, 1] = '0'
                 matrix[1, 1] = '0'
-            if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[1, 2] == '1' or matrix[1, 2] == '*'):
+            if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[1, 2] == 1 or matrix[1, 2] == '*'):
                 function += "A' C D + "
                 matrix[0, 2] = '0'
                 matrix[1, 2] = '0'
-            if (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (matrix[1, 3] == '1' or matrix[1, 3] == '*'):
+            if (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (matrix[1, 3] == 1 or matrix[1, 3] == '*'):
                 function += "A' C D' + "
                 matrix[0, 3] = '0'
                 matrix[1, 3] = '0'
-            if (matrix[1, 0] == '1' or matrix[1, 0] == '*') and (matrix[2, 0] == '1' or matrix[2, 0] == '*'):
+            if (matrix[1, 0] == 1 or matrix[1, 0] == '*') and (matrix[2, 0] == 1 or matrix[2, 0] == '*'):
                 function += "B C' D' + "
                 matrix[1, 0] = '0'
                 matrix[2, 0] = '0'
-            if (matrix[1, 1] == '1' or matrix[1, 1] == '*') and (matrix[2, 1] == '1' or matrix[2, 1] == '*'):
+            if (matrix[1, 1] == 1 or matrix[1, 1] == '*') and (matrix[2, 1] == 1 or matrix[2, 1] == '*'):
                 function += "B C' D + "
                 matrix[1, 1] = '0'
                 matrix[2, 1] = '0'
-            if (matrix[1, 2] == '1' or matrix[1, 2] == '*') and (matrix[2, 2] == '1' or matrix[2, 2] == '*'):
+            if (matrix[1, 2] == 1 or matrix[1, 2] == '*') and (matrix[2, 2] == 1 or matrix[2, 2] == '*'):
                 function += "B C D + "
                 matrix[1, 2] = '0'
                 matrix[2, 2] = '0'
-            if (matrix[1, 3] == '1' or matrix[1, 3] == '*') and (matrix[2, 3] == '1' or matrix[2, 3] == '*'):
+            if (matrix[1, 3] == 1 or matrix[1, 3] == '*') and (matrix[2, 3] == 1 or matrix[2, 3] == '*'):
                 function += "B C D' + "
                 matrix[1, 3] = '0'
                 matrix[2, 3] = '0'
-            if (matrix[2, 0] == '1' or matrix[2, 0] == '*') and (matrix[3, 0] == '1' or matrix[3, 0] == '*'):
+            if (matrix[2, 0] == 1 or matrix[2, 0] == '*') and (matrix[3, 0] == 1 or matrix[3, 0] == '*'):
                 function += "A C' D + "
                 matrix[2, 0] = '0'
                 matrix[3, 0] = '0'
-            if (matrix[2, 1] == '1' or matrix[2, 1] == '*') and (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[2, 1] == 1 or matrix[2, 1] == '*') and (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "A C' D + "
                 matrix[2, 1] = '0'
                 matrix[3, 1] = '0'
-            if (matrix[2, 2] == '1' or matrix[2, 2] == '*') and (matrix[3, 2] == '1' or matrix[3, 2] == '*'):
+            if (matrix[2, 2] == 1 or matrix[2, 2] == '*') and (matrix[3, 2] == 1 or matrix[3, 2] == '*'):
                 function += "A C D + "
                 matrix[2, 2] = '0'
                 matrix[3, 2] = '0'
-            if (matrix[2, 3] == '1' or matrix[2, 3] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[2, 3] == 1 or matrix[2, 3] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "A C D' + "
                 matrix[2, 3] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 0] == '1' or matrix[0, 0] == '*') and (matrix[3, 0] == '1' or matrix[3, 0] == '*'):
+            if (matrix[0, 0] == 1 or matrix[0, 0] == '*') and (matrix[3, 0] == 1 or matrix[3, 0] == '*'):
                 function += "B' C' D' + "
                 matrix[0, 0] = '0'
                 matrix[3, 0] = '0'
-            if (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "B' C D' + "
                 matrix[0, 3] = '0'
                 matrix[3, 3] = '0'
-            if (matrix[0, 1] == '1' or matrix[0, 1] == '*') and (matrix[3, 1] == '1' or matrix[3, 1] == '*'):
+            if (matrix[0, 1] == 1 or matrix[0, 1] == '*') and (matrix[3, 1] == 1 or matrix[3, 1] == '*'):
                 function += "B' C' D + "
                 matrix[0, 1] = '0'
                 matrix[3, 1] = '0'
-            if (matrix[0, 2] == '1' or matrix[0, 2] == '*') and (matrix[3, 2] == '1' or matrix[3, 2] == '*'):
+            if (matrix[0, 2] == 1 or matrix[0, 2] == '*') and (matrix[3, 2] == 1 or matrix[3, 2] == '*'):
                 function += "B' C D + "
                 matrix[0, 2] = '0'
                 matrix[3, 2] = '0'
-            if (matrix[0, 3] == '1' or matrix[0, 3] == '*') and (matrix[3, 3] == '1' or matrix[3, 3] == '*'):
+            if (matrix[0, 3] == 1 or matrix[0, 3] == '*') and (matrix[3, 3] == 1 or matrix[3, 3] == '*'):
                 function += "B' C D' + "
                 matrix[0, 3] = '0'
                 matrix[3, 3] = '0'
             # cazul in care avem 1 de 1
-            if matrix[0, 0] == '1':
+            if matrix[0, 0] == 1:
                 function += "A' B' C' D' + "
                 matrix[0, 0] = '0'
-            if matrix[0, 1] == '1':
+            if matrix[0, 1] == 1:
                 function += "A' B' C' D + "
                 matrix[0, 1] = '0'
-            if matrix[0, 2] == '1':
+            if matrix[0, 2] == 1:
                 function += "A' B' C D + "
                 matrix[0, 2] = '0'
-            if matrix[0, 3] == '1':
+            if matrix[0, 3] == 1:
                 function += "A' B' C D' + "
                 matrix[0, 3] = '0'
-            if matrix[1, 0] == '1':
+            if matrix[1, 0] == 1:
                 function += "A' B C' D' + "
                 matrix[1, 0] = '0'
-            if matrix[1, 1] == '1':
+            if matrix[1, 1] == 1:
                 function += "A' B C' D + "
                 matrix[1, 1] = '0'
-            if matrix[1, 2] == '1':
+            if matrix[1, 2] == 1:
                 function += "A' B C D + "
                 matrix[1, 2] = '0'
-            if matrix[1, 3] == '1':
+            if matrix[1, 3] == 1:
                 function += "A' B C D' + "
                 matrix[1, 3] = '0'
-            if matrix[2, 0] == '1':
+            if matrix[2, 0] == 1:
                 function += "A B C' D' + "
                 matrix[2, 0] = '0'
-            if matrix[2, 1] == '1':
+            if matrix[2, 1] == 1:
                 function += "A B C' D + "
                 matrix[2, 1] = '0'
-            if matrix[2, 2] == '1':
+            if matrix[2, 2] == 1:
                 function += "A B C D + "
                 matrix[2, 2] = '0'
-            if matrix[2, 3] == '1':
+            if matrix[2, 3] == 1:
                 function += "A B C D' + "
                 matrix[2, 3] = '0'
-            if matrix[3, 0] == '1':
+            if matrix[3, 0] == 1:
                 function += "A B' C' D' + "
                 matrix[3, 0] = '0'
-            if matrix[3, 1] == '1':
+            if matrix[3, 1] == 1:
                 function += "A B' C' D + "
                 matrix[3, 1] = '0'
-            if matrix[3, 2] == '1':
+            if matrix[3, 2] == 1:
                 function += "A B' C D + "
                 matrix[3, 2] = '0'
-            if matrix[3, 3] == '1':
+            if matrix[3, 3] == 1:
                 function += "A B' C D + "
                 matrix[3, 3] = '0'
 
@@ -833,6 +845,7 @@ def get_minimized_form_of_the_function(sigma_nr_of_var, sigma_input, sigmas_inpu
     new_dictionary = {}
     if sigma_nr_of_var == 3:
         dictionary = create_dictionary(sigma_input, sigma_nr_of_var)
+        new_dictionary = dictionary
         if sigmas_correct == 1:
             new_dictionary = create_sigmas_dictionary(sigmas_input, dictionary)
         arr = np.array([[new_dictionary.get(0), new_dictionary.get(2), new_dictionary.get(6), new_dictionary.get(4)],
@@ -844,6 +857,7 @@ def get_minimized_form_of_the_function(sigma_nr_of_var, sigma_input, sigmas_inpu
         new_dictionary = {}
         if sigma_nr_of_var == 4:
             dictionary = create_dictionary(sigma_input, sigma_nr_of_var)
+            new_dictionary = dictionary
             if sigmas_correct == 1:
                 new_dictionary = create_sigmas_dictionary(sigmas_input, dictionary)
             arr = np.array(
@@ -870,7 +884,9 @@ def get_minimized_form_of_the_function(sigma_nr_of_var, sigma_input, sigmas_inpu
 
 def get_expected_input(prompt):
     while True:
-        value = "sigma(1,5,9,13)+sigma*(3,7,11,15)"
+        # value = "sigma(1,5,9,13)+sigma*(3,7,11,15)"
+        print(prompt)
+        value = input()
         line = value
         line = line.replace('(', 'l')
         line = line.replace(')', 'l')
@@ -914,6 +930,7 @@ def get_expected_input(prompt):
         if sigma_n == "sigma" and check_sigma_input(sigma_input) and (sigmas_status == 0 or sigmas_correct == 1):
             print_truth_table(sigma_nr_of_var, sigma_input, sigmas_input, sigmas_correct)
             matrix = get_minimized_form_of_the_function(sigma_nr_of_var, sigma_input, sigmas_input, sigmas_correct)
+            print("Matricea pentru care se va calcula forma minimizata este:", matrix)
             fnd_n = compute_minimized_form(matrix, sigma_nr_of_var)
             size = len(fnd_n)
             fnd = fnd_n[:size - 2]
@@ -924,9 +941,9 @@ def get_expected_input(prompt):
             print(
                 "Sorry, your response must be a valid input, like: sigma(.,.,...) or sigma(.,.,...)+sigma*(.,.,...)")
 
-        return value
+        #return value
 
 
-sigma = get_expected_input("Please enter sigma: ")
-#print(sigma)
+get_expected_input("Please enter sigma: ")
+# print(sigma)
 # print_truth_table(4, '1,2,3', '8,9,10', 1)
